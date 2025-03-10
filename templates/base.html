@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} - Moreira Hypermarket System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .active::after {
+            width: 100%;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+    <!-- Cabeçalho -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <!-- Barra Superior -->
+            <div class="flex justify-between items-center py-4 border-b border-gray-200">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-shopping-cart text-3xl text-blue-600"></i>
+                    <h1 class="text-2xl font-bold text-gray-800">Moreira Hypermarket System</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="text-gray-600 hover:text-blue-600">
+                        <i class="fab fa-facebook text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 hover:text-blue-600">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 hover:text-blue-600">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Navegação -->
+            <nav class="py-4">
+                <ul class="flex space-x-8">
+                    <li>
+                        <a href="{{ url_for('home') }}" class="nav-link {% if request.endpoint == 'home' %}active text-blue-600{% else %}text-gray-600 hover:text-blue-600{% endif %} font-medium">
+                            <i class="fas fa-box-open mr-2"></i>Estoque
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('faturamento') }}" class="nav-link {% if request.endpoint == 'faturamento' %}active text-blue-600{% else %}text-gray-600 hover:text-blue-600{% endif %} font-medium">
+                            <i class="fas fa-chart-line mr-2"></i>Faturamento
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('fornecedores') }}" class="nav-link {% if request.endpoint == 'fornecedores' %}active text-blue-600{% else %}text-gray-600 hover:text-blue-600{% endif %} font-medium">
+                            <i class="fas fa-truck mr-2"></i>Fornecedores
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('relatorios') }}" class="nav-link {% if request.endpoint == 'relatorios' %}active text-blue-600{% else %}text-gray-600 hover:text-blue-600{% endif %} font-medium">
+                            <i class="fas fa-chart-pie mr-2"></i>Relatórios
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('configuracoes') }}" class="nav-link {% if request.endpoint == 'configuracoes' %}active text-blue-600{% else %}text-gray-600 hover:text-blue-600{% endif %} font-medium">
+                            <i class="fas fa-cog mr-2"></i>Configurações
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Sobre Nós</h3>
+                    <p class="text-gray-400">Moreira Hypermarket System - Sua solução completa para gestão de supermercados.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Links Rápidos</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="{{ url_for('home') }}" class="hover:text-white transition-colors">Início</a></li>
+                        <li><a href="{{ url_for('faturamento') }}" class="hover:text-white transition-colors">Faturamento</a></li>
+                        <li><a href="{{ url_for('relatorios') }}" class="hover:text-white transition-colors">Relatórios</a></li>
+                        <li><a href="{{ url_for('configuracoes') }}" class="hover:text-white transition-colors">Configurações</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contato</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><i class="fas fa-phone mr-2"></i> +55 (XX) XXXX-XXXX</li>
+                        <li><i class="fas fa-envelope mr-2"></i> contato@moreirahyper.com</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i> São Paulo, SP - Brasil</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Redes Sociais</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-whatsapp text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Moreira Hypermarket System. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
