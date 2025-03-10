@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fornecedores - Moreira Hypermarket System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Cabeçalho -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <!-- Barra Superior -->
+            <div class="flex justify-between items-center py-4 border-b border-gray-200">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-shopping-cart text-3xl text-blue-600"></i>
+                    <h1 class="text-2xl font-bold text-gray-800">Moreira Hypermarket System</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="text-gray-600 hover:text-blue-600">
+                        <i class="fab fa-facebook text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 hover:text-blue-600">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 hover:text-blue-600">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Navegação -->
+            <nav class="py-4">
+                <ul class="flex space-x-8">
+                    <li>
+                        <a href="/" class="nav-link text-gray-600 hover:text-blue-600 font-medium">
+                            <i class="fas fa-box-open mr-2"></i>Estoque
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/faturamento" class="nav-link text-gray-600 hover:text-blue-600 font-medium">
+                            <i class="fas fa-chart-line mr-2"></i>Faturamento
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/fornecedores" class="nav-link active text-blue-600 font-medium">
+                            <i class="fas fa-truck mr-2"></i>Fornecedores
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/relatorios" class="nav-link text-gray-600 hover:text-blue-600 font-medium">
+                            <i class="fas fa-chart-pie mr-2"></i>Relatórios
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/configuracoes" class="nav-link text-gray-600 hover:text-blue-600 font-medium">
+                            <i class="fas fa-cog mr-2"></i>Configurações
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Cadastro de Fornecedor -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Cadastro de Fornecedor</h2>
+                <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-plus mr-2"></i>Novo Fornecedor
+                </button>
+            </div>
+            <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700">Razão Social</label>
+                    <input type="text" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700">CNPJ</label>
+                    <input type="text" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700">Telefone</label>
+                    <input type="tel" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                <div class="space-y-2 md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700">Endereço</label>
+                    <input type="text" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                <button type="submit" class="md:col-span-2 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-save mr-2"></i>Cadastrar Fornecedor
+                </button>
+            </form>
+        </div>
+
+        <!-- Lista de Fornecedores -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Fornecedores Cadastrados</h2>
+                        <p class="text-gray-600 text-sm mt-1">Lista completa de fornecedores</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors">
+                            <i class="fas fa-filter mr-2"></i>Filtrar
+                        </button>
+                        <button class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors">
+                            <i class="fas fa-download mr-2"></i>Exportar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Razão Social</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">CNPJ</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Telefone</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">Tio João Alimentos Ltda</td>
+                            <td class="px-6 py-4 whitespace-nowrap">12.345.678/0001-90</td>
+                            <td class="px-6 py-4 whitespace-nowrap">contato@tiojoao.com.br</td>
+                            <td class="px-6 py-4 whitespace-nowrap">(11) 1234-5678</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <button class="text-blue-600 hover:text-blue-900 mr-3">
+                                    <i class="fas fa-edit"></i> Editar
+                                </button>
+                                <button class="text-red-600 hover:text-red-900">
+                                    <i class="fas fa-trash"></i> Excluir
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">Coca-Cola Brasil</td>
+                            <td class="px-6 py-4 whitespace-nowrap">23.456.789/0001-01</td>
+                            <td class="px-6 py-4 whitespace-nowrap">vendas@cocacola.com.br</td>
+                            <td class="px-6 py-4 whitespace-nowrap">(11) 2345-6789</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <button class="text-blue-600 hover:text-blue-900 mr-3">
+                                    <i class="fas fa-edit"></i> Editar
+                                </button>
+                                <button class="text-red-600 hover:text-red-900">
+                                    <i class="fas fa-trash"></i> Excluir
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
