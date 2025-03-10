@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações - Moreira Hypermarket System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .settings-card {
+            transition: all 0.3s ease;
+        }
+        .settings-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Cabeçalho -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <!-- Barra Superior -->
+            <div class="flex justify-between items-center py-4 border-b border-gray-200">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-shopping-cart text-3xl text-blue-600"></i>
+                    <h1 class="text-2xl font-bold text-gray-800">Moreira Hypermarket System</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="text-gray-600 hover:text-blue-600">
+                        <i class="fab fa-facebook text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 hover:text-blue-600">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 hover:text-blue-600">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Navegação -->
+            <nav class="py-4">
+                <ul class="flex space-x-8">
+                    <li>
+                        <a href="/" class="nav-link text-gray-600 hover:text-blue-600 font-medium">
+                            <i class="fas fa-box-open mr-2"></i>Estoque
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/faturamento" class="nav-link text-gray-600 hover:text-blue-600 font-medium">
+                            <i class="fas fa-chart-line mr-2"></i>Faturamento
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/fornecedores" class="nav-link text-gray-600 hover:text-blue-600 font-medium">
+                            <i class="fas fa-truck mr-2"></i>Fornecedores
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/relatorios" class="nav-link text-gray-600 hover:text-blue-600 font-medium">
+                            <i class="fas fa-chart-pie mr-2"></i>Relatórios
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/configuracoes" class="nav-link active text-blue-600 font-medium">
+                            <i class="fas fa-cog mr-2"></i>Configurações
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Configurações da Empresa -->
+            <div class="settings-card bg-white p-6 rounded-xl shadow-lg">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-building text-blue-500 text-2xl mr-3"></i>
+                    <h2 class="text-xl font-semibold">Dados da Empresa</h2>
+                </div>
+                <form class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Nome da Empresa</label>
+                        <input type="text" value="Moreira Hypermarket" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">CNPJ</label>
+                        <input type="text" value="12.345.678/0001-90" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Endereço</label>
+                        <input type="text" value="Av. Principal, 1000" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                        Salvar Alterações
+                    </button>
+                </form>
+            </div>
+
+            <!-- Configurações do Sistema -->
+            <div class="settings-card bg-white p-6 rounded-xl shadow-lg">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-cogs text-purple-500 text-2xl mr-3"></i>
+                    <h2 class="text-xl font-semibold">Configurações do Sistema</h2>
+                </div>
+                <form class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Moeda</label>
+                        <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <option>R$ (Real Brasileiro)</option>
+                            <option>$ (Dólar Americano)</option>
+                            <option>€ (Euro)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Fuso Horário</label>
+                        <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <option>Brasília (GMT-3)</option>
+                            <option>São Paulo (GMT-3)</option>
+                            <option>Rio de Janeiro (GMT-3)</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                        <label class="ml-2 block text-sm text-gray-700">Ativar notificações</label>
+                    </div>
+                    <button type="submit" class="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors">
+                        Salvar Configurações
+                    </button>
+                </form>
+            </div>
+
+            <!-- Usuários e Permissões -->
+            <div class="settings-card bg-white p-6 rounded-xl shadow-lg">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-users-cog text-green-500 text-2xl mr-3"></i>
+                    <h2 class="text-xl font-semibold">Usuários e Permissões</h2>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium">Gerenciar Usuários</span>
+                        <button class="text-blue-600 hover:text-blue-800">
+                            <i class="fas fa-user-plus"></i> Adicionar
+                        </button>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium">Gerenciar Funções</span>
+                        <button class="text-blue-600 hover:text-blue-800">
+                            <i class="fas fa-users"></i> Configurar
+                        </button>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium">Permissões</span>
+                        <button class="text-blue-600 hover:text-blue-800">
+                            <i class="fas fa-key"></i> Definir
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backup e Segurança -->
+            <div class="settings-card bg-white p-6 rounded-xl shadow-lg">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-shield-alt text-red-500 text-2xl mr-3"></i>
+                    <h2 class="text-xl font-semibold">Backup e Segurança</h2>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium">Último backup</span>
+                        <span class="text-gray-600">10/03/2024 15:30</span>
+                    </div>
+                    <button class="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
+                        <i class="fas fa-download mr-2"></i>Fazer Backup Agora
+                    </button>
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium">Backup Automático</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked>
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
