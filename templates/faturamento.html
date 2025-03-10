@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block title %}Faturamento{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <!-- Gráfico de Faturamento Mensal -->
+    <div class="bg-white p-6 rounded-xl shadow-lg">
+        <h2 class="text-xl font-semibold mb-4">Faturamento Mensal</h2>
+        <canvas id="graficoFaturamento" height="300"></canvas>
+    </div>
+
+    <!-- Gráfico de Categorias -->
+    <div class="bg-white p-6 rounded-xl shadow-lg">
+        <h2 class="text-xl font-semibold mb-4">Faturamento por Categoria</h2>
+        <canvas id="graficoCategorias" height="300"></canvas>
+    </div>
+
+    <!-- Tabela de Vendas Recentes -->
+    <div class="bg-white p-6 rounded-xl shadow-lg md:col-span-2">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold">Vendas Recentes</h2>
+            <div class="flex space-x-2">
+                <button class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors">
+                    <i class="fas fa-filter mr-2"></i>Filtrar
+                </button>
+                <button class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors">
+                    <i class="fas fa-download mr-2"></i>Exportar
+                </button>
+            </div>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Data</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Produto</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Categoria</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Quantidade</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Valor Total</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for venda in vendas %}
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap">{{ venda.data }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ venda.produto }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-3 py-1 rounded-full text-sm font-medium bg-{{ categoria_cores[venda.categoria] }}-100 text-{{ categoria_cores[venda.categoria] }}-800">
+                                {{ venda.categoria }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ venda.quantidade }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">R$ {{ "%.2f"|format(venda.valor_total) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+function inicializarGraficos(dadosFaturamentoStr, dadosCategoriasStr) {
+    const dadosFaturamento = JSON.parse(dadosFaturamentoStr);
+    const dadosCategorias = JSON.parse(dadosCategoriasStr);
+
+    // Gráfico de Faturamento Mensal
+    const meses = dadosFaturamento.map(item => item.mes);
+    const valores = dadosFaturamento.map(item => item.total);
+
+    const ctxFaturamento = document.getElementById('graficoFaturamento').getContext('2d');
+    new Chart(ctxFaturamento, {
+        type: 'line',
+        data: {
+            labels: meses,
+            datasets: [{
+                label: 'Faturamento (R$)',
+                data: valores,
+                borderColor: 'rgb(59, 130, 246)',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                tension: 0.1,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `Faturamento: R$ ${context.parsed.y.toLocaleString('pt-BR', {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2
+                            })}`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return `R$ ${value.toLocaleString('pt-BR', {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2
+                            })}`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Gráfico de Categorias
+    const categorias = Object.keys(dadosCategorias);
+    const valoresCategorias = Object.values(dadosCategorias);
+
+    const coresCategorias = {
+        'Alimentos': 'rgb(34, 197, 94)',
+        'Bebidas': 'rgb(59, 130, 246)',
+        'Higiene Pessoal': 'rgb(168, 85, 247)',
+        'Limpeza': 'rgb(234, 179, 8)',
+        'Outros': 'rgb(107, 114, 128)'
+    };
+
+    const ctxCategorias = document.getElementById('graficoCategorias').getContext('2d');
+    new Chart(ctxCategorias, {
+        type: 'doughnut',
+        data: {
+            labels: categorias,
+            datasets: [{
+                data: valoresCategorias,
+                backgroundColor: categorias.map(cat => coresCategorias[cat] || coresCategorias['Outros']),
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const value = context.raw.toLocaleString('pt-BR', {
+                                style: 'currency',
+                                currency: 'BRL'
+                            });
+                            return `${context.label}: ${value}`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    inicializarGraficos(
+        '{{ stats.faturamento_mensal|tojson|safe }}',
+        '{{ stats.faturamento_categoria|tojson|safe }}'
+    );
+});
+</script>
+{% endblock %}
